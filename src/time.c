@@ -21,7 +21,7 @@ long int get_time(void)
 		perror("Can't get current time");
 		exit(EXIT_FAILURE);
 	}
-	ms = time.tv_sec * 1000 + time.tv_usec / 1000;
+	ms = (time.tv_sec * 1000) + (time.tv_usec / 1000);
 	return (ms);
 }
 
@@ -32,5 +32,5 @@ void	ft_usleep (long int time)
 	start = 0;
 	start = get_time();
 	while ((get_time() - start) < time)
-		usleep(time / 100);
+		usleep(time / 10);
 }

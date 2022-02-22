@@ -12,6 +12,8 @@ t_sim *init_sim(int argc, char *argv[])
 	sim->specs = init_specs(argc, argv);
 	sim->philos = init_philos(sim, sim->start);
 	sim->threads = malloc(sizeof(pthread_t) * sim->specs->n_of_philos);
+	sim->monitor = malloc(sizeof(pthread_t));
+	pthread_mutex_init(&sim->write, NULL);
 	if (!sim->threads)
 		exit_error(sim, "threads malloc failed");
 	init_threads(sim);

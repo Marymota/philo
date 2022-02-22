@@ -33,8 +33,10 @@ typedef struct s_sim
 	t_philos		*philos;
 	t_specs			*specs;
 	pthread_t		*threads;
+	pthread_t		*monitor;
 	long int		start;
 	int				end;
+	pthread_mutex_t	write;
 }				t_sim;
 
 void		error_handling(int argc, char *argv[]);
@@ -54,5 +56,6 @@ int			exit_end(t_sim *sim);
 void		init_mutex(t_sim *sim);
 void		init_threads(t_sim *sim);
 int			death(t_sim *sim, t_philos *philo);
+void		*monitor(void *arg);
 
 #endif

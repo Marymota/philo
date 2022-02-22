@@ -16,5 +16,8 @@ void	init_threads(t_sim *sim)
 		if (pthread_join(sim->threads[i], NULL) != 0)
 			exit_error(sim, "Threads join failed\n");
 	}
+	if (pthread_create(sim->monitor, NULL, &monitor, sim) != 0)
+		exit_error(sim, "Thread creation failed\n");
+	exit_end(sim);		
 }
 

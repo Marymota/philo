@@ -4,6 +4,8 @@ void free_structs(t_sim *sim)
 {
 	if (sim->threads != NULL)
 		free(sim->threads);
+	if (sim->monitor != NULL)
+		free(sim->monitor);
 	if (sim->philos != NULL)
 		free(sim->philos);
 	if (sim != NULL)
@@ -21,16 +23,10 @@ int exit_end(t_sim *sim)
 {
 	int i;
 
-	if (sim->specs->n_of_philos > 1)
-	{
-		i = -1;
-		while (++i < sim->specs->n_of_philos)
-			pthread_mutex_destroy(sim->philos->right_fork);
-	}
-
-	//i = -1;
-	//while (++i < sim->specs->n_of_philos)
-	//	pthread_exit(&sim->threads[i]);
+	i = -1;
+	while (++i < sim->specs->n_of_philos)
+		pthread_mutex_destroy(&sim->philos->left_fork);
+	pthread_mutex_destroy(&sim->write);
 	free_structs(sim);
 	exit(EXIT_SUCCESS);
 }
