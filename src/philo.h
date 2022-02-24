@@ -48,7 +48,7 @@ void		init_threads(t_sim *sim);
 void		*action(void *arg);
 long int	get_time(void);
 void		free_structs(t_sim *sim);
-void		ft_usleep (long int time);
+void		ft_usleep (long int time, t_sim *sim);
 int			ft_atoi(const char *n);
 int			ft_isdigit(int c);
 int			exit_error(t_sim *sim, char *err);

@@ -25,12 +25,15 @@ long int get_time(void)
 	return (ms);
 }
 
-void	ft_usleep (long int time)
+void	ft_usleep (long int time, t_sim *sim)
 {
 	long int	start;
 
 	start = 0;
 	start = get_time();
 	while ((get_time() - start) < time)
-		usleep(time / 10);
+	{
+		if (!sim->end)
+			usleep(time / 10);
+	}
 }
