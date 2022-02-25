@@ -1,22 +1,22 @@
 #ifndef PHILO_H
-#define PHILO_H
+# define PHILO_H
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <pthread.h>
-#include <sys/time.h>
-#include <stdbool.h>
-#include <error.h>
+# include <stdio.h>
+# include <string.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <pthread.h>
+# include <sys/time.h>
+# include <stdbool.h>
+# include <error.h>
 
 typedef struct s_specs
 {
-	int n_of_philos;
-	int time_to_die;
-	int time_to_eat;
-	int time_to_sleep;
-	int n_times_philos_must_eat;
+	int	n_of_philos;
+	int	time_to_die;
+	int	time_to_eat;
+	int	time_to_sleep;
+	int	n_times_philos_must_eat;
 }				t_specs;
 
 typedef struct s_philos
@@ -35,7 +35,6 @@ typedef struct s_sim
 	pthread_t		*threads;
 	pthread_t		*monitor;
 	long int		start;
-	int				end;
 	pthread_mutex_t	write;
 }				t_sim;
 
@@ -48,7 +47,7 @@ void		init_threads(t_sim *sim);
 void		*action(void *arg);
 long int	get_time(void);
 void		free_structs(t_sim *sim);
-void		ft_usleep (long int time, t_sim *sim);
+void		ft_usleep (long int time);
 int			ft_atoi(const char *n);
 int			ft_isdigit(int c);
 int			exit_error(t_sim *sim, char *err);

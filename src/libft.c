@@ -1,6 +1,6 @@
 #include "philo.h"
 
-int ft_isdigit(int c)
+int	ft_isdigit(int c)
 {
 	return (c >= '0' && c <= '9');
 }
@@ -21,7 +21,7 @@ int	ft_atoi(const char *n)
 	while (*n)
 	{
 		if (!ft_isdigit(*n))
-			return(-1);
+			return (-1);
 		res = res * 10 + *n - '0';
 		++n;
 	}

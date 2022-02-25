@@ -10,7 +10,7 @@
 
 #include <philo.h>
 
-long int get_time(void)
+long int	get_time(void)
 {
 	long int		ms;
 	struct timeval	time;
@@ -25,15 +25,12 @@ long int get_time(void)
 	return (ms);
 }
 
-void	ft_usleep (long int time, t_sim *sim)
+void	ft_usleep (long int time)
 {
 	long int	start;
 
 	start = 0;
 	start = get_time();
 	while ((get_time() - start) < time)
-	{
-		if (!sim->end)
-			usleep(time / 10);
-	}
+		usleep(time / 10);
 }

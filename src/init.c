@@ -1,6 +1,6 @@
 #include "philo.h"
 
-t_sim *init_sim(int argc, char *argv[])
+t_sim	*init_sim(int argc, char *argv[])
 {
 	t_sim	*sim;
 
@@ -8,11 +8,14 @@ t_sim *init_sim(int argc, char *argv[])
 	if (!sim)
 		exit_error(sim, "sim malloc failed");
 	sim->start = get_time();
-	sim->end = 0;
 	sim->specs = init_specs(argc, argv);
 	sim->philos = init_philos(sim, sim->start);
 	sim->threads = malloc(sizeof(pthread_t) * sim->specs->n_of_philos);
+	if (!sim->threads)
+		exit_error(sim, "sim malloc failed");
 	sim->monitor = malloc(sizeof(pthread_t));
+	if (!sim->monitor)
+		exit_error(sim, "sim malloc failed");
 	pthread_mutex_init(&sim->write, NULL);
 	if (!sim->threads)
 		exit_error(sim, "threads malloc failed");
@@ -20,12 +23,13 @@ t_sim *init_sim(int argc, char *argv[])
 	return (sim);
 }
 
-//	Init a struct that contains all the info passed on the function call;
 t_specs	*init_specs(int argc, char *argv[])
 {
-	t_specs *specs;
+	t_specs	*specs;
 
 	specs = malloc(sizeof(t_specs));
+	if (!specs)
+		exit(EXIT_FAILURE);
 	specs->n_of_philos = ft_atoi(argv[1]);
 	specs->time_to_die = ft_atoi(argv[2]);
 	specs->time_to_eat = ft_atoi(argv[3]);
@@ -37,46 +41,68 @@ t_specs	*init_specs(int argc, char *argv[])
 	return (specs);
 }
 
-/*	init_philos() creates a struc that contains all the necessary info
-	regarding the life_cycle of each philosopher;
-*/
 t_philos	*init_philos(t_sim *sim, long int start)
 {
 	t_philos	*philo;
-	int i;
+	int			i;
 
 	philo = malloc(sizeof(t_philos) * sim->specs->n_of_philos);
 	if (!philo)
-	{
 		exit_error(sim, "philos malloc failed");
-	}
 	i = -1;
-	while(++i < sim->specs->n_of_philos)
+	while (++i < sim->specs->n_of_philos)
 	{
 		philo[i].id = i + 1;
 		philo[i].meals_count = sim->specs->n_times_philos_must_eat;
 		philo[i].time_last_meal = start;
 	}
 	init_forks(philo, sim->specs);
-	return(philo);
+	return (philo);
 }
 
 void	init_forks(t_philos *philo, t_specs *specs)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < specs->n_of_philos)
 	{
-		pthread_mutex_init(&philo[i].left_fork, NULL);
-		if (specs->n_of_philos == 1)
+		if (pthread_mutex_init(&philo[i].left_fork, NULL) == 0)
 		{
-			philo[0].right_fork = NULL;
-			return ;
+			if (specs->n_of_philos == 1)
+			{
+				philo[0].right_fork = NULL;
+				return ;
+			}
+			else if (i != 0)
+				philo[i].right_fork = &philo[i - 1].left_fork;
 		}
-		else if (i != 0)
-			philo[i].right_fork = &philo[i - 1].left_fork;
+		else
+			exit(EXIT_FAILURE);
 	}
 	philo[0].right_fork = &philo[specs->n_of_philos - 1].left_fork;
 }
 
+void	init_threads(t_sim *sim)
+{
+	int	i;
+
+	if (sim->specs->n_of_philos != 1)
+	{
+		if (pthread_create(sim->monitor, NULL, &monitor, sim) != 0)
+			exit_error(sim, "Thread creation failed\n");
+	}
+	i = -1;
+	while (++i < sim->specs->n_of_philos)
+	{
+		if (pthread_create(&sim->threads[i], NULL, &action, sim) != 0)
+			exit_error(sim, "Thread creation failed\n");
+	}
+	i = -1;
+	while (++i < sim->specs->n_of_philos)
+	{
+		if (pthread_join(sim->threads[i], NULL) != 0)
+			exit_error(sim, "Threads join failed\n");
+	}
+	exit_end(sim);
+}

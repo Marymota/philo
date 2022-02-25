@@ -1,6 +1,20 @@
 #include "philo.h"
 
-void free_structs(t_sim *sim)
+int	death(t_sim *sim, t_philos *philo)
+{
+	long int	death_time;
+
+	death_time = get_time() - philo->time_last_meal;
+	if (death_time >= sim->specs->time_to_die)
+	{
+		pthread_mutex_lock(&sim->write);
+		printf("%li %i died\n", death_time, philo->id);
+		exit_end(sim);
+	}
+	return (0);
+}
+
+void	free_structs(t_sim *sim)
 {
 	if (sim->threads != NULL)
 		free(sim->threads);
@@ -12,16 +26,16 @@ void free_structs(t_sim *sim)
 		free(sim);
 }
 
-int exit_error(t_sim *sim, char *err)
+int	exit_error(t_sim *sim, char *err)
 {
 	printf("%s\n", err);
 	free_structs(sim);
 	exit(EXIT_FAILURE);
 }
 
-int exit_end(t_sim *sim)
+int	exit_end(t_sim *sim)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < sim->specs->n_of_philos)
