@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmota <mmota@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/03 17:12:36 by mmota             #+#    #+#             */
+/*   Updated: 2022/03/06 21:52:18 by mmota            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 t_sim	*init_sim(int argc, char *argv[])
@@ -13,13 +25,13 @@ t_sim	*init_sim(int argc, char *argv[])
 	sim->threads = malloc(sizeof(pthread_t) * sim->specs->n_of_philos);
 	if (!sim->threads)
 		exit_error(sim, "sim malloc failed");
-	sim->monitor = malloc(sizeof(pthread_t));
-	if (!sim->monitor)
-		exit_error(sim, "sim malloc failed");
 	pthread_mutex_init(&sim->write, NULL);
-	if (!sim->threads)
-		exit_error(sim, "threads malloc failed");
+	pthread_mutex_init(&sim->increment, NULL);
+	pthread_mutex_init(&sim->meal_time, NULL);
+	pthread_mutex_init(&sim->meals, NULL);
 	init_threads(sim);
+	sim->finish_eat = 0;
+	sim->end = 0;
 	return (sim);
 }
 
@@ -54,7 +66,7 @@ t_philos	*init_philos(t_sim *sim, long int start)
 	{
 		philo[i].id = i + 1;
 		philo[i].meals_count = sim->specs->n_times_philos_must_eat;
-		philo[i].time_last_meal = start;
+		philo[i].time_meal = start;
 	}
 	init_forks(philo, sim->specs);
 	return (philo);
@@ -87,17 +99,13 @@ void	init_threads(t_sim *sim)
 {
 	int	i;
 
-	if (sim->specs->n_of_philos != 1)
-	{
-		if (pthread_create(sim->monitor, NULL, &monitor, sim) != 0)
-			exit_error(sim, "Thread creation failed\n");
-	}
 	i = -1;
 	while (++i < sim->specs->n_of_philos)
 	{
 		if (pthread_create(&sim->threads[i], NULL, &action, sim) != 0)
 			exit_error(sim, "Thread creation failed\n");
 	}
+	monitor(sim);
 	i = -1;
 	while (++i < sim->specs->n_of_philos)
 	{

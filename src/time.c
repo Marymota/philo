@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   time.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmota <mmota@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/03 17:13:14 by mmota             #+#    #+#             */
+/*   Updated: 2022/03/03 18:41:52 by mmota            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 /* 	1 second = 1000 milliseconds 
 	-> tv_sec (second) = milliseconds / 1000; 
 	1 microsecond = 0.001 milliseconds 
@@ -25,7 +37,7 @@ long int	get_time(void)
 	return (ms);
 }
 
-void	ft_usleep (long int time)
+void	ft_usleep(long int time)
 {
 	long int	start;
 

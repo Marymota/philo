@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmota <mmota@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/03 17:12:56 by mmota             #+#    #+#             */
+/*   Updated: 2022/03/06 21:50:59 by mmota            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 void	error_handling(int argc, char *argv[])
@@ -7,7 +19,7 @@ void	error_handling(int argc, char *argv[])
 		printf("not enough arguments\n");
 		exit(EXIT_FAILURE);
 	}
-	if (argc > 6 )
+	if (argc > 6)
 	{
 		printf("too many arguments\n");
 		exit(EXIT_FAILURE);
@@ -37,5 +49,3 @@ int	main(int argc, char *argv[])
 	sim = init_sim(argc, argv);
 	exit_end(sim);
 }
-
-// Tester https://github.com/mfunyu/tester_philosophers
