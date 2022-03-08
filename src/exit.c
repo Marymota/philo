@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmota <mmota@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/08 18:32:35 by mmota             #+#    #+#             */
+/*   Updated: 2022/03/08 18:36:18 by mmota            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 int	death(t_sim *sim, t_philos *philo)
@@ -5,7 +17,7 @@ int	death(t_sim *sim, t_philos *philo)
 	long int	death_time;
 
 	pthread_mutex_lock(&sim->time_meal);
-	death_time = get_time() - philo->time_last_meal;
+	death_time = get_time() - philo->time_meal;
 	pthread_mutex_unlock(&sim->time_meal);
 	if (death_time > sim->specs->time_to_die)
 	{

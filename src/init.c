@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmota <mmota@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/08 18:32:30 by mmota             #+#    #+#             */
+/*   Updated: 2022/03/08 18:35:05 by mmota            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "philo.h"
 
@@ -61,7 +72,7 @@ t_philos	*init_philos(t_sim *sim, long int start)
 	{
 		philo[i].id = i + 1;
 		philo[i].meals_count = sim->specs->n_times_philos_must_eat;
-		philo[i].time_last_meal = start;
+		philo[i].time_meal = start;
 	}
 	init_forks(philo, sim->specs);
 	return (philo);

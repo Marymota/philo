@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmota <mmota@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/08 18:33:24 by mmota             #+#    #+#             */
+/*   Updated: 2022/03/08 18:35:13 by mmota            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 
@@ -24,7 +36,7 @@ typedef struct s_philos
 	int				meals_count;
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	left_fork;
-	long int		time_last_meal;
+	long int		time_meal;
 }				t_philos;
 
 typedef struct s_sim
@@ -40,7 +52,7 @@ typedef struct s_sim
 	pthread_mutex_t	eat;
 	pthread_mutex_t	death;
 	int				finish_eat;
-	int             end;
+	int				end;
 }				t_sim;
 
 void		error_handling(int argc, char *argv[]);
@@ -52,7 +64,7 @@ void		init_threads(t_sim *sim);
 void		*action(void *arg);
 long int	get_time(void);
 void		free_structs(t_sim *sim);
-void		ft_usleep (long int time);
+void		ft_usleep(long int time);
 int			ft_atoi(const char *n);
 int			ft_isdigit(int c);
 int			exit_error(t_sim *sim, char *err);
