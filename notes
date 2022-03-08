@@ -1,0 +1,22 @@
+After a long while, thanks to some great help
+I was able to figure out what the problems were
+
+All my program run well exept when the first thread taken was 
+philo->2 instead of philo->1, at that point my philo one would die
+and then keep running for a long while what was obvious not normal.
+
+After that It was called to my attention that just philo one died
+all the time.
+For some strange reason I thought that was perfectly normal...
+After a printf in the death() function it was visible that only philo->id 1 
+was entering that function.
+So I had to arrange the monitor function that until that point was only
+observing one.. but declare death as soon as sim->die turn to 1;
+
+After that the time of death keep being printed 1ms after other actions
+were taken and the problem was that I was printing
+"current time - philo->time of last meal", the formula I use to
+compare if is more than "time o die".
+The one I should be printing is "current time - time of start";
+
+After that everything seems to be OK XP

@@ -6,7 +6,7 @@
 /*   By: mmota <mmota@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 18:32:17 by mmota             #+#    #+#             */
-/*   Updated: 2022/03/08 21:58:09 by mmota            ###   ########.fr       */
+/*   Updated: 2022/03/08 22:17:41 by mmota            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,6 @@ void	*monitor(void *arg)
 	t_philos	*philo;
 
 	sim = (t_sim *)arg;
-	//pthread_mutex_lock(&sim->increment);
-	//philo = &sim->philos[++i];
-	//pthread_mutex_unlock(&sim->increment);
 	while (1)
 	{
 		pthread_mutex_lock(&sim->increment);
