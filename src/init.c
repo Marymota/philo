@@ -6,7 +6,7 @@
 /*   By: mmota <mmota@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 18:32:30 by mmota             #+#    #+#             */
-/*   Updated: 2022/03/08 18:35:05 by mmota            ###   ########.fr       */
+/*   Updated: 2022/03/08 21:23:04 by mmota            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	init_threads(t_sim *sim)
 			exit_error(sim, "Thread creation failed\n");
 	}
 	i = -1;
-	while (++i < sim->specs->n_of_philos && !sim->end)
+	while (++i < sim->specs->n_of_philos)
 	{
 		if (pthread_create(&sim->threads[i], NULL, &action, sim) != 0)
 			exit_error(sim, "Thread creation failed\n");
@@ -122,4 +122,7 @@ void	init_threads(t_sim *sim)
 		if (pthread_join(sim->threads[i], NULL) != 0)
 			exit_error(sim, "Threads join failed\n");
 	}
+	if (pthread_join(*sim->monitor, NULL) != 0)
+		exit_error(sim, "monitor join failed\n");
+	free_structs(sim);
 }

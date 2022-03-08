@@ -6,7 +6,7 @@
 /*   By: mmota <mmota@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 17:13:14 by mmota             #+#    #+#             */
-/*   Updated: 2022/03/08 16:51:51 by mmota            ###   ########.fr       */
+/*   Updated: 2022/03/08 20:58:12 by mmota            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_usleep(long int time)
 {
 	long int	start;
 
-	start = 0;
+	//start = 0;
 	start = get_time();
 	while ((get_time() - start) < time)
 		usleep(time / 10);
