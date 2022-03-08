@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mmota <mmota@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/03 17:13:51 by mmota             #+#    #+#             */
-/*   Updated: 2022/03/06 21:47:07 by mmota            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef PHILO_H
 # define PHILO_H
 
@@ -36,7 +24,7 @@ typedef struct s_philos
 	int				meals_count;
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	left_fork;
-	long int		time_meal;
+	long int		time_last_meal;
 }				t_philos;
 
 typedef struct s_sim
@@ -47,11 +35,12 @@ typedef struct s_sim
 	pthread_t		*monitor;
 	long int		start;
 	pthread_mutex_t	write;
-	pthread_mutex_t	meal_time;
 	pthread_mutex_t	increment;
-	pthread_mutex_t	meals;
+	pthread_mutex_t	time_meal;
+	pthread_mutex_t	eat;
+	pthread_mutex_t	death;
 	int				finish_eat;
-	int				end;
+	int             end;
 }				t_sim;
 
 void		error_handling(int argc, char *argv[]);
@@ -63,7 +52,7 @@ void		init_threads(t_sim *sim);
 void		*action(void *arg);
 long int	get_time(void);
 void		free_structs(t_sim *sim);
-void		ft_usleep(long int time);
+void		ft_usleep (long int time);
 int			ft_atoi(const char *n);
 int			ft_isdigit(int c);
 int			exit_error(t_sim *sim, char *err);
@@ -71,6 +60,6 @@ int			exit_end(t_sim *sim);
 void		init_mutex(t_sim *sim);
 void		init_threads(t_sim *sim);
 int			death(t_sim *sim, t_philos *philo);
-void		monitor(t_sim *sim);
+void		*monitor(void *arg);
 
 #endif
