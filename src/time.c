@@ -3,22 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmota <mmota@student.42.fr>                +#+  +:+       +#+        */
+/*   By: marmota <marmota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 17:13:14 by mmota             #+#    #+#             */
-/*   Updated: 2022/03/08 20:58:12 by mmota            ###   ########.fr       */
+/*   Updated: 2022/03/10 02:31:14 by marmota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/* 	1 second = 1000 milliseconds 
-	-> tv_sec (second) = milliseconds / 1000; 
-	1 microsecond = 0.001 milliseconds 
-	-> tv_usec (microsecond) = milliseconds * 1000;
-	If you need to count time using float values 
-	tv_sec and tv_usec must be summed up;
-
-	usleep() suspends execution for microseconds
-*/
 
 #include <philo.h>
 
@@ -41,7 +31,6 @@ void	ft_usleep(long int time)
 {
 	long int	start;
 
-	//start = 0;
 	start = get_time();
 	while ((get_time() - start) < time)
 		usleep(time / 10);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmota <mmota@student.42.fr>                +#+  +:+       +#+        */
+/*   By: marmota <marmota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 18:32:30 by mmota             #+#    #+#             */
-/*   Updated: 2022/03/08 21:23:04 by mmota            ###   ########.fr       */
+/*   Updated: 2022/03/10 03:19:39 by marmota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,20 @@ t_sim	*init_sim(int argc, char *argv[])
 	sim = malloc(sizeof(t_sim));
 	if (!sim)
 		exit_error(sim, "sim malloc failed");
-	sim->start = get_time();
 	sim->finish_eat = 0;
-	sim->end = 0;
+	sim->start = get_time();
 	sim->specs = init_specs(argc, argv);
 	sim->philos = init_philos(sim, sim->start);
 	sim->threads = malloc(sizeof(pthread_t) * sim->specs->n_of_philos);
 	if (!sim->threads)
-		exit_error(sim, "sim malloc failed");
+		exit_error(sim, "threads malloc failed");
 	sim->monitor = malloc(sizeof(pthread_t));
 	if (!sim->monitor)
-		exit_error(sim, "sim malloc failed");
-	pthread_mutex_init(&sim->write, NULL);
+		exit_error(sim, "monitor malloc failed");
 	pthread_mutex_init(&sim->increment, NULL);
+	pthread_mutex_init(&sim->write, NULL);
 	pthread_mutex_init(&sim->time_meal, NULL);
 	pthread_mutex_init(&sim->eat, NULL);
-	pthread_mutex_init(&sim->death, NULL);
 	if (!sim->threads)
 		exit_error(sim, "threads malloc failed");
 	init_threads(sim);
@@ -122,7 +120,10 @@ void	init_threads(t_sim *sim)
 		if (pthread_join(sim->threads[i], NULL) != 0)
 			exit_error(sim, "Threads join failed\n");
 	}
-	if (pthread_join(*sim->monitor, NULL) != 0)
-		exit_error(sim, "monitor join failed\n");
+	if (sim->specs->n_of_philos != 1)
+	{
+		if (pthread_join(*sim->monitor, NULL) != 0)
+			exit_error(sim, "monitor join failed\n");
+	}
 	free_structs(sim);
 }

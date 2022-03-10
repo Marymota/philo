@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmota <mmota@student.42.fr>                +#+  +:+       +#+        */
+/*   By: marmota <marmota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 18:33:24 by mmota             #+#    #+#             */
-/*   Updated: 2022/03/08 18:35:13 by mmota            ###   ########.fr       */
+/*   Updated: 2022/03/10 03:18:03 by marmota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,7 @@ typedef struct s_sim
 	pthread_mutex_t	increment;
 	pthread_mutex_t	time_meal;
 	pthread_mutex_t	eat;
-	pthread_mutex_t	death;
 	int				finish_eat;
-	int				end;
 }				t_sim;
 
 void		error_handling(int argc, char *argv[]);
@@ -68,7 +66,6 @@ void		ft_usleep(long int time);
 int			ft_atoi(const char *n);
 int			ft_isdigit(int c);
 int			exit_error(t_sim *sim, char *err);
-int			exit_end(t_sim *sim);
 void		init_mutex(t_sim *sim);
 void		init_threads(t_sim *sim);
 int			death(t_sim *sim, t_philos *philo);

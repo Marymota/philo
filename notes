@@ -20,3 +20,13 @@ compare if is more than "time o die".
 The one I should be printing is "current time - time of start";
 
 After that everything seems to be OK XP
+
+- ThreadSanitizer: lock-order-inversion (potential deadlock) src/simulation.c:52 in get_forks
+The program seems to work as it should but this error ocurred using the ThreadSanitizer,
+I have read that this happens when multiple threads try to get two resourses in the same order.
+so to avoid it I alterned the order odd and even philosophers get the forks to avoid being
+stopped in a mutex for a long time.
+I don't know why this solves the problem.. but it does..
+
+Later I tried to just start actions 1 ms later for even philos.
+Not sure what I did that now they will not die when they should if I don't use that bit.

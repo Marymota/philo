@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmota <mmota@student.42.fr>                +#+  +:+       +#+        */
+/*   By: marmota <marmota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 17:12:56 by mmota             #+#    #+#             */
-/*   Updated: 2022/03/08 14:41:38 by mmota            ###   ########.fr       */
+/*   Updated: 2022/03/10 02:16:20 by marmota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	error_handling(int argc, char *argv[])
 		printf("too many arguments\n");
 		exit(EXIT_FAILURE);
 	}
-	if (ft_atoi(argv[1]) <= 0 || ft_atoi(argv[1]) > 200)
+	if (ft_atoi(argv[1]) < 0 || ft_atoi(argv[1]) > 200)
 	{
 		printf("invalid arguments\n");
 		exit(EXIT_FAILURE);
@@ -43,9 +43,7 @@ void	error_handling(int argc, char *argv[])
 
 int	main(int argc, char *argv[])
 {
-	t_sim	*sim;
-
 	error_handling(argc, argv);
-	sim = init_sim(argc, argv);
-	exit_end(sim);
+	init_sim(argc, argv);
+	exit(EXIT_SUCCESS);
 }
