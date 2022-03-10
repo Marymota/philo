@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marmota <marmota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmota <mmota@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 18:32:30 by mmota             #+#    #+#             */
-/*   Updated: 2022/03/10 03:19:39 by marmota          ###   ########.fr       */
+/*   Updated: 2022/03/10 18:20:01 by mmota            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ t_sim	*init_sim(int argc, char *argv[])
 	pthread_mutex_init(&sim->increment, NULL);
 	pthread_mutex_init(&sim->write, NULL);
 	pthread_mutex_init(&sim->time_meal, NULL);
-	pthread_mutex_init(&sim->eat, NULL);
 	if (!sim->threads)
 		exit_error(sim, "threads malloc failed");
 	init_threads(sim);

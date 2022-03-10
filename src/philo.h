@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marmota <marmota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmota <mmota@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 18:33:24 by mmota             #+#    #+#             */
-/*   Updated: 2022/03/10 03:18:03 by marmota          ###   ########.fr       */
+/*   Updated: 2022/03/10 18:20:20 by mmota            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ typedef struct s_sim
 	pthread_mutex_t	write;
 	pthread_mutex_t	increment;
 	pthread_mutex_t	time_meal;
-	pthread_mutex_t	eat;
 	int				finish_eat;
 }				t_sim;
 
